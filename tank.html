@@ -6,30 +6,85 @@
     <style>
         body{padding: 0; margin: 0; background-color:#043636;}
         ul{list-style-type: none;padding: 0; margin: 0;}
-        li, img{width: 80x ; height: 50px;}
+        li, img{width: 80px ; height: 50px;}
         li{position: absolute;}
     </style>
     <script src="jquerry.js"></script>
     <script>
-        &(document).ready(function(){
-                &("li").animate({
-                    left:"300px",
-                    top:"300px",
+        
+        function fishSwimRandom(idRef){
+            let newTop = Math.random() *  ($(document).height() - 100) + "px";
+            let newLeft = Math.random() * ($(document).width() - 100);
+            if(newLeft < $(idRef).offset().left){
+                $(idRef).css("transform", "rotateY(180deg)")
+            }else {
+                $(idRef).css("transform", "rotateY(0deg)")
+            }
+            newLeft = newLeft + "px";
+       
+            $(idRef).animate({
+                    left: newLeft,
+                    top: newTop, 
                 }, 
-                1000
+                2000,
+                ()=>{fishSwimRandom(idRef);} 
                 );
+        };
+        function fishSwimDirected(idRef){
+            let newTop = event.pageY;
+            let newLeft = event.pageX;
+            if(newLeft < $(idRef).offset().left){
+                $(idRef).css("transform", "rotateY(180deg)")
+            }else {
+                $(idRef).css("transform", "rotateY(0deg)")
+            }
+           
+            $(idRef).animate({
+                    left: newLeft,
+                    top: newTop, 
+                }, 
+                2000,
+                ()=>{fishSwimRandom(idRef);} 
+                );
+
+        };
+        
+        
+
+        $(document).ready(function(){
+                chooseFishNumber();
+                $("li").each(function(id){
+                    fishSwimRandom(this)
+                });
         });
+        $(document).click(function(event){
+            $("li").each(function(id){
+                $(this).stop(true);
+                fishSwimDirected(this)
+            });
+        });
+
     </script>
+    </head>
 <body>
 
 <ul>
-    <li><img src="fish.png" alt="fish"></li>
+    <li id="1"><img src="fish.png" alt="fish"></li>
+    <li id="2"><img src="fish.png" alt="fish1"></li>
+    <li id="3"><img src="fish.png" alt="fish1"></li>
+    <li id="4"><img src="fish.png" alt="fish1"></li>
+    <li id="5"><img src="fish.png" alt="fish1"></li>
+    <li id="6"><img src="fish.png" alt="fish1"></li>
+    <li id="7"><img src="fish.png" alt="fish1"></li>
+    <li id="8"><img src="fish.png" alt="fish1"></li>
+    <li id="9"><img src="fish.png" alt="fish1"></li>
+    <li id="10"><img src="fish.png" alt="fish1"></li>
 </ul>
 
 
 </body>
 
-</head>
+
 
 
 </html>
